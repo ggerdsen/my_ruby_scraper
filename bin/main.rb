@@ -18,9 +18,15 @@ loop do
   puts 'Error, please enter a valid selection (indeed only at this time...)'
 end
 
+puts 'Enter a job title or other search string'
+
+search = ""
+search = gets.chomp
+
+
 # calls the IndeedScraper class
 if input == "indeed"
-  url = 'https://www.indeed.com/jobs?q=Ruby+On+Rails&l=Remote&explvl=entry_level&sort=date'
+  url = "https://www.indeed.com/jobs?q=#{search}&l=Remote&explvl=entry_level&sort=date"
   website = IndeedScraper.new(url)
 end
 
