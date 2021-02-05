@@ -63,8 +63,10 @@ class IndeedScraper < Scraper
       'https://www.indeed.com/compan' + key_url
     elsif key_url.start_with?('?jk=')
       'https://www.indeed.com/viewjob' + key_url
-    elseif key_url.start_with?('/clk?mo')
+    elsif key_url.start_with?('/clk?mo')
       'https://www.indeed.com/pagead' + key_url
+    else
+      'unknown parameter, adjust in `append_link_type` method in indeed_scraper class...'
     end
   end
 end
