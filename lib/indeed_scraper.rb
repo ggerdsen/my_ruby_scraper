@@ -8,7 +8,7 @@ class IndeedScraper < Scraper
 
   def initialize(url)
     @url = url
-    @result = ['Title,Company,Location,Summary,URL, Day_posted']
+    @result = ['Title,Company,Location,Summary,URL,Day_posted']
   end
 
   def scrape
@@ -51,7 +51,6 @@ class IndeedScraper < Scraper
       summary = listing.css('div.summary').text.gsub("\n", '').gsub(',', ' ')
       key_url = listing.css('a')[0].attributes['href'].value[7..-1]
       url = append_link_type(key_url)
-      # url = key_url.start_with?('?jk=') ? 'https://www.indeed.com/viewjob' + key_url : ''
       day_posted = listing.css('span.date').text.gsub("\n", '')
       @result << "#{title},#{company},#{location},#{summary},#{url},#{day_posted}"
     end
