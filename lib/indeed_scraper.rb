@@ -8,7 +8,7 @@ class IndeedScraper < Scraper
 
   def initialize(url)
     @url = url
-    @result = ['Title,Company,Location,Summary,URL,Day_posted']
+    @result = ['Title,Company,Location,Summary,Date_Posted,Easily_Apply?,URL']
   end
 
   def scrape
@@ -17,7 +17,6 @@ class IndeedScraper < Scraper
     pages_append_urls = page_ending_urls(total_pages)
     scrape_per_page(pages_append_urls)
     sorted_arr = sort_by_dates(@result)
-    binding.pry
     write('indeed_jobs.csv', sorted_arr, 'jobs matching your search criteria')
     
   end
@@ -53,7 +52,8 @@ class IndeedScraper < Scraper
       key_url = listing.css('a')[0].attributes['href'].value[7..-1]
       url = append_link_type(key_url)
       day_posted = listing.css('span.date').text.gsub("\n", '')
-      @result << "#{title},#{company},#{location},#{summary},#{url},#{day_posted}"
+      easy_apply = !(listing.css('td.indeedApply').text).empty?
+      @result << "#{title},#{company},#{location},#{summary},#{day_posted},#{easy_apply},#{url}"
     end
   end
   
