@@ -35,7 +35,7 @@ class IndeedScraper < Scraper
       parsed_page = parsing_page(each_page_url)
       job_listings = parsed_page.css('div.jobsearch-SerpJobCard')
       add_jobs(job_listings)
-      puts "#{@result.length - 1} Ruby on Rails jobs have been scraped from indeed.com..."
+      puts "#{@result.length - 1} jobs meeting your search criteria have been scraped from indeed.com..."
     end
   end
   
